@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "types": ["vite/client"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "~assets/*": ["./public/assets/*"],
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
