@@ -1,0 +1,36 @@
+pre-commit:
+  piped: true
+  commands:
+    lint:
+      priority: 1
+      glob: "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts,css,scss}"
+      run: pnpm lefthook run lint
+      stage_fixed: true
+
+    prettier:
+      priority: 2
+      glob: "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts,css,scss,md,mdx,yaml,yml,json,html}"
+      run: |
+        pnpm prettier {staged_files} --log-level=warn --cache --write
+      stage_fixed: true
+
+lint:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}"
+      run: |
+        pnpm eslint {staged_files} --max-warnings=0 --cache --fix
+      stage_fixed: true
+
+    stylelint:
+      glob: "*.{css,scss}"
+      run: |
+        pnpm stylelint {staged_files} --max-warnings=0 --cache --fix
+      stage_fixed: true
+
+post-merge:
+  commands:
+    pnpm:
+      glob: "{package.json,pnpm-lock.yaml}"
+      run: pnpm install

@@ -1,0 +1,62 @@
+name: Build
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - ".storybook/**"
+      - "stories/**"
+      - "*config.*"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/build.yml"
+
+jobs:
+  tanstack-router:
+    name: TanStack Router
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enable Corepack
+        run: |
+          npm i -g corepack@latest
+          corepack enable
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Build TanStack Router
+        run: pnpm build
+
+  storybook:
+    name: Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Enable Corepack
+        run: |
+          npm i -g corepack@latest
+          corepack enable
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Build Storybook
+        run: pnpm sb:build

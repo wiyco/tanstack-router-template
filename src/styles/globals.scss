@@ -1,0 +1,5 @@
+@use "./tailwind";
+
+body {
+  @apply bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50;
+}
